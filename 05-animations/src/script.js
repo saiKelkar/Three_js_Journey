@@ -1,4 +1,10 @@
+/**
+ * Animation in three.js using either Clock, or DeltaTime
+ * Small working example with GreenSock (gsap) Library
+ */
+
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -29,14 +35,35 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 
+// Time
+let time = Date.now()
+
+// Clock
+const clock = new THREE.Clock()
+
+// GreenSock (Animation Library)
+gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 })
 
 // Animations
 const tick = () => {
+    /*
+    // Time
+    const currentTime = Date.now()
+    const deltaTime = currentTime - time
+    time = currentTime
+
+    // Clock
+    const elapsedTime = clock.getElapsedTime()
+
     // Update Objects
-    mesh.rotation.x += 0.01
+    mesh.rotation.x += 0.001 * elapsedTime
+    camera.position.y = Math.sin(elapsedTime)
+    camera.lookAt(mesh.position)
+    */
 
     // Render
     renderer.render(scene, camera)
+
     window.requestAnimationFrame(tick)
 }
 
